@@ -2,12 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation">
+    android:id="@+id/navigation"
+    app:startDestination="@id/logInFragment">
 
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.example.mynotes.ui.login.LogInFragment"
-        android:label="fragment_log_in"
+        android:label=""
+        app:labelVisibilityMode="unlabeled"
         tools:layout="@layout/fragment_log_in" >
         <action
             android:id="@+id/action_logInFragment_to_cadastroFragment"
@@ -19,17 +21,20 @@
     <fragment
         android:id="@+id/cadastroFragment"
         android:name="com.example.mynotes.ui.cadastro.CadastroFragment"
-        android:label="fragment_cadastro"
+        android:label=""
+        app:labelVisibilityMode="unlabeled"
         tools:layout="@layout/fragment_cadastro" />
     <fragment
         android:id="@+id/notaFragment"
         android:name="com.example.mynotes.ui.nota.NotaFragment"
-        android:label="fragment_nota"
+        android:label=""
+        app:labelVisibilityMode="unlabeled"
         tools:layout="@layout/fragment_nota" />
     <fragment
         android:id="@+id/listaNotasFragment"
         android:name="com.example.mynotes.ui.listanotas.ListaNotasFragment"
-        android:label="fragment_lista_notas"
+        android:label=""
+        app:labelVisibilityMode="unlabeled"
         tools:layout="@layout/fragment_lista_notas" >
         <action
             android:id="@+id/action_listaNotasFragment_to_notaFragment"
