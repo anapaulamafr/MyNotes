@@ -26,7 +26,7 @@
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"
             android:src="@drawable/new_note"
-            app:tint="@color/cinza_escuro"/>
+            app:tint="@color/black"/>
 
         <TextView
             android:id="@+id/txtToolbarTitle"
@@ -42,7 +42,7 @@
             android:layout_gravity="end"
             android:layout_marginEnd="20dp"
             android:text="@string/logout"
-            android:backgroundTint="@color/cinza_escuro"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -56,7 +56,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <androidx.fragment.app.FragmentContainerView
+        <fragment
             android:id="@+id/myNavHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
