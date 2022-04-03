@@ -32,11 +32,11 @@
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/layoutEditTextSenha"
+        android:id="@+id/editTextSenhaLogIn"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="5dp"
-        android:labelFor="@+id/layoutEditTextSenha"
+        android:labelFor="@+id/editTextSenhaLogIn"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
         android:background="@drawable/button_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutEditTextSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextSenhaLogIn" />
 
     <ImageView
         android:id="@+id/logo"

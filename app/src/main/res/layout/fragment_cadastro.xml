@@ -68,11 +68,11 @@
         android:layout_marginTop="25dp"
         android:text="@string/password"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/layoutEditTextSenha"
+        app:layout_constraintStart_toStartOf="@id/editTextSenhaLogIn"
         app:layout_constraintTop_toBottomOf="@+id/layoutEditTextEmail" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutEditTextSenha"
+        android:id="@+id/editTextSenhaLogIn"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
         android:text="@string/passWordConfirmation"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/editTextConfirmarSenha"
-        app:layout_constraintTop_toBottomOf="@+id/layoutEditTextSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextSenhaLogIn" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextConfirmarSenha"
