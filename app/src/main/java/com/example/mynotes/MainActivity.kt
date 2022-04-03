@@ -1,6 +1,7 @@
 package com.example.mynotes
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -34,23 +35,24 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         navController = Navigation.findNavController(this, R.id.myNavHostFragment)
         navGraph = navController.navInflater.inflate(R.navigation.navigation)
-        navGraph.setStartDestination(R.id.logInFragment)
-
-        setContentView(binding.root)
-
+        navGraph.setStartDestination(R.id.cadastroFragment)
         val navHostFragment = supportFragmentManager.findFragmentById(
             R.id.myNavHostFragment
         ) as NavHostFragment
         navController = navHostFragment.navController
 
-        appBarConfiguration= AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
 
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-
         auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        if (currentUser == null) {
+            Navigation.findNavController(this, R.id.myNavHostFragment).navigate(R.id.logInFragment)
+        }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -58,10 +60,5 @@ class MainActivity : AppCompatActivity() {
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
         val account = GoogleSignIn.getLastSignedInAccount(this)
 
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
     }
 }

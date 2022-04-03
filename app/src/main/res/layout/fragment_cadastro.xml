@@ -12,7 +12,6 @@
         android:id="@+id/logoSmall"
         android:layout_width="130dp"
         android:layout_height="100dp"
-        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +25,7 @@
         android:text="@string/signUpTitulo"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/editTextEmail"
+        app:layout_constraintStart_toStartOf="@id/layoutEditTextEmail"
         app:layout_constraintTop_toBottomOf="@+id/logoSmall" />
 
     <TextView
@@ -36,11 +35,11 @@
         android:layout_marginTop="25dp"
         android:text="@string/email"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/editTextEmail"
+        app:layout_constraintStart_toStartOf="@id/layoutEditTextEmail"
         app:layout_constraintTop_toBottomOf="@+id/textViewCadastroTitulo" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextEmail"
+        android:id="@+id/layoutEditTextEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,6 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewCadastro" >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColorHint="#757575"
@@ -68,11 +68,11 @@
         android:layout_marginTop="25dp"
         android:text="@string/password"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/editTextSenha"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+        app:layout_constraintStart_toStartOf="@id/layoutEditTextSenha"
+        app:layout_constraintTop_toBottomOf="@+id/layoutEditTextEmail" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextSenha"
+        android:id="@+id/layoutEditTextSenha"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,6 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewSenha">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextSenha"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColorHint="#757575"
@@ -101,7 +102,7 @@
         android:text="@string/passWordConfirmation"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/editTextConfirmarSenha"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutEditTextSenha" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextConfirmarSenha"
