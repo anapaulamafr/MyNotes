@@ -30,9 +30,11 @@ class LogInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLogInBinding.inflate(inflater, container, false)
+
         binding.btnSignUp.setOnClickListener {
             findNavController().navigate(R.id.cadastroFragment)
         }
+
         return binding.root
     }
 
@@ -42,16 +44,21 @@ class LogInFragment : Fragment() {
         val email = binding.editTextEmail.text.toString()
         val password = binding.editTextSenhaLogIn.text.toString()
 
-        auth = Firebase.auth
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    findNavController().navigate(R.id.listaNotasFragment)
-                } else {
-                    Toast.makeText(context, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+        binding.btnLogin.setOnClickListener {
+            auth = Firebase.auth
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        val user = auth.currentUser
+                        findNavController().navigate(R.id.listaNotasFragment)
+                    } else {
+                        Toast.makeText(context, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
+            findNavController().navigate(R.id.cadastroFragment)
+        }
+
+
     }
 }

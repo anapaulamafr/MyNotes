@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.mynotes.Nota
+import com.example.mynotes.R
 import com.example.mynotes.databinding.FragmentListaNotasBinding
 
 class ListaNotasFragment : Fragment() {
@@ -22,7 +25,11 @@ class ListaNotasFragment : Fragment() {
     ): View? {
         _binding = FragmentListaNotasBinding.inflate(inflater, container, false)
 
+        binding.btnNovaNota.setOnClickListener {
+            findNavController().navigate(R.id.notaFragment)
+        }
 
+        val arrayList = ArrayList<Nota>()
         return binding.root
     }
 

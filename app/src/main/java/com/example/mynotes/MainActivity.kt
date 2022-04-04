@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         val currentUser = auth.currentUser
-        val palavra = currentUser!!.email
 
         if (currentUser == null) {
             binding.txtLogout.visibility = View.GONE
