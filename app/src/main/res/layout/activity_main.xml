@@ -17,22 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/btnNovaNota"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="8dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            android:src="@drawable/new_note"
-            app:tint="@color/black"/>
-
         <TextView
             android:id="@+id/txtToolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:visibility="gone"
             android:textSize="16sp" />
 
         <TextView

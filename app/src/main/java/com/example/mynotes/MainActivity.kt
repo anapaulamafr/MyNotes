@@ -1,7 +1,9 @@
 package com.example.mynotes
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
@@ -13,12 +15,15 @@ import com.example.mynotes.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navGraph: NavGraph
     private lateinit var auth: FirebaseAuth
+    private lateinit var storage: FirebaseStorage
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -41,14 +46,22 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
+
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        toolbar.navigationIcon = null
+
 
         auth = Firebase.auth
         val currentUser = auth.currentUser
         val palavra = currentUser!!.email
 
         if (currentUser == null) {
+            binding.txtLogout.visibility = View.GONE
+            binding.txtToolbarTitle.visibility = View.VISIBLE
             Navigation.findNavController(this, R.id.myNavHostFragment).navigate(R.id.logInFragment)
         }
+
+        storage = Firebase.storage
     }
 }

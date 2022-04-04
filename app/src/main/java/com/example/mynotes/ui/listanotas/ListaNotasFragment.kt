@@ -21,8 +21,9 @@ class ListaNotasFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentListaNotasBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+
+
+        return binding.root
     }
 
     override fun onDestroyView() {
