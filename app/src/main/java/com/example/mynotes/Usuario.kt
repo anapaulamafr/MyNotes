@@ -1,6 +1,7 @@
 package com.example.mynotes
 
 data class Usuario(
-    var name: String,
-    var uid: Int
+    var uid: String,
+    var nome: String?,
+    var notas: ArrayList<Nota>
 )

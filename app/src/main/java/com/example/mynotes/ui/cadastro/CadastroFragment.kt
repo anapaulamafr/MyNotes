@@ -8,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.mynotes.Nota
 import com.example.mynotes.R
+import com.example.mynotes.Usuario
 import com.example.mynotes.databinding.FragmentCadastroBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.auth.User
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
@@ -57,8 +60,12 @@ class CadastroFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 val isNewUser: Boolean = task.result.additionalUserInfo!!.isNewUser
                 if (task.isSuccessful && isNewUser) {
+                    val notas = ArrayList<Nota>()
                     val user = auth.currentUser
-
+                    val db = Firebase.firestore
+                    val userDocument = firebaseFirestore.collection("users").document(user!!.uid)
+                    val usuario = Usuario(user.uid, user.displayName, notas)
+                    firebaseFirestore.collection("users").document(user.uid).set(usuario);
                 }
             }
         val user = auth.currentUser
