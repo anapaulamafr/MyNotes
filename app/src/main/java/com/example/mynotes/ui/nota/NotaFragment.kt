@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.example.mynotes.databinding.FragmentNotaBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -16,6 +18,7 @@ class NotaFragment : Fragment() {
     private var _binding: FragmentNotaBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+    private lateinit var firebaseFirestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,10 @@ class NotaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentNotaBinding.inflate(inflater, container, false)
+
+        firebaseFirestore = FirebaseFirestore.getInstance()
+        auth = Firebase.auth
+
         return binding.root
     }
 
@@ -38,13 +45,15 @@ class NotaFragment : Fragment() {
         super.onPause()
 
         auth = Firebase.auth
-        val currentUser = auth.currentUser
+        val mensagem = binding.editTextTextMultiLine.text.toString()
 
         val texto: String = binding.editTextTextMultiLine.text.toString()
         if (texto != "") {
-            val db = Firebase.firestore
-            val dbUser = db.collection("users")
-            db.document(currentUser!!.uid)
+            val currentUser = auth.currentUser
+            val dbUser =  firebaseFirestore.collection("users").document(currentUser!!.uid)
+            dbUser.update("notas", FieldValue.arrayUnion(mensagem))
+
+
         }
     }
 }

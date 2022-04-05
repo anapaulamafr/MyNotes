@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.txtLogout.setOnClickListener {
             Firebase.auth.signOut()
+            Navigation.findNavController(this, R.id.myNavHostFragment).navigate(R.id.logInFragment)
         }
 
         if (currentUser == null) {

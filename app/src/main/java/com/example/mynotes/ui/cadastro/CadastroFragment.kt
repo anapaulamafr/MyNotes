@@ -46,7 +46,6 @@ class CadastroFragment : Fragment() {
                 val email = binding.editTextEmail.text.toString()
                 val password = binding.editTextSenha.text.toString()
                 createAccount(email, password)
-                createNewUser()
             }
         }
     }
@@ -55,6 +54,8 @@ class CadastroFragment : Fragment() {
         if (!validateForm()) {
             return
         }
+
+
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
@@ -65,14 +66,10 @@ class CadastroFragment : Fragment() {
                     val db = Firebase.firestore
                     val userDocument = firebaseFirestore.collection("users").document(user!!.uid)
                     val usuario = Usuario(user.uid, user.displayName, notas)
-                    firebaseFirestore.collection("users").document(user.uid).set(usuario);
+                    firebaseFirestore.collection("users").document(user.uid).set(usuario)
+                    findNavController().navigate(R.id.logInFragment)
                 }
             }
-        val user = auth.currentUser
-
-        if (user != null) {
-            findNavController().navigate(R.id.logInFragment)
-        }
     }
 
     private fun validateForm(): Boolean {
@@ -100,12 +97,5 @@ class CadastroFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    @SuppressLint("RestrictedApi")
-    private fun createNewUser() {
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        val newUser = User(firebaseUser!!.uid)
-        firebaseFirestore.collection("users").document(firebaseUser.uid).set(firebaseUser)
     }
 }
