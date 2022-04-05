@@ -51,6 +51,10 @@ class MainActivity : AppCompatActivity() {
 
         toolbar.navigationIcon = null
 
+        binding.txtLogout.setOnClickListener {
+            Firebase.auth.signOut()
+        }
+
         if (currentUser == null) {
             binding.txtLogout.visibility = View.GONE
             binding.txtToolbarTitle.visibility = View.VISIBLE
@@ -59,6 +63,8 @@ class MainActivity : AppCompatActivity() {
         else {
             val dbUser = db.collection("users")
             db.document(currentUser.uid)
+            binding.txtLogout.visibility = View.VISIBLE
+            binding.txtToolbarTitle.visibility = View.GONE
         }
 
     }
