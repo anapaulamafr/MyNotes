@@ -37,4 +37,5 @@ class ListaNotasFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

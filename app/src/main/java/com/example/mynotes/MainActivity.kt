@@ -1,8 +1,6 @@
 package com.example.mynotes
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -14,24 +12,26 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.mynotes.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navGraph: NavGraph
     private lateinit var auth: FirebaseAuth
-    private lateinit var storage: FirebaseStorage
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        val db = Firebase.firestore
 
         setSupportActionBar(binding.toolbar)
         navController = Navigation.findNavController(this, R.id.myNavHostFragment)
@@ -51,16 +51,15 @@ class MainActivity : AppCompatActivity() {
 
         toolbar.navigationIcon = null
 
-
-        auth = Firebase.auth
-        val currentUser = auth.currentUser
-
         if (currentUser == null) {
             binding.txtLogout.visibility = View.GONE
             binding.txtToolbarTitle.visibility = View.VISIBLE
             Navigation.findNavController(this, R.id.myNavHostFragment).navigate(R.id.logInFragment)
         }
+        else {
+            val dbUser = db.collection("users")
+            db.document(currentUser.uid)
+        }
 
-        storage = Firebase.storage
     }
 }

@@ -1,24 +1,28 @@
 package com.example.mynotes.ui.cadastro
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mynotes.R
 import com.example.mynotes.databinding.FragmentCadastroBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
+
 
 class CadastroFragment : Fragment() {
 
     private var _binding: FragmentCadastroBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+    private lateinit var firebaseFirestore: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,16 +35,17 @@ class CadastroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        auth = Firebase.auth
+        firebaseFirestore = FirebaseFirestore.getInstance()
+
         with (binding) {
             buttonSignUp.setOnClickListener {
                 val email = binding.editTextEmail.text.toString()
                 val password = binding.editTextSenha.text.toString()
                 createAccount(email, password)
-
+                createNewUser()
             }
         }
-
-        auth = Firebase.auth
     }
 
     private fun createAccount(email: String, password: String) {
@@ -49,7 +54,15 @@ class CadastroFragment : Fragment() {
         }
 
         auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                val isNewUser: Boolean = task.result.additionalUserInfo!!.isNewUser
+                if (task.isSuccessful && isNewUser) {
+                    val user = auth.currentUser
+
+                }
+            }
         val user = auth.currentUser
+
         if (user != null) {
             findNavController().navigate(R.id.logInFragment)
         }
@@ -80,5 +93,12 @@ class CadastroFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun createNewUser() {
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        val newUser = User(firebaseUser!!.uid)
+        firebaseFirestore.collection("users").document(firebaseUser.uid).set(firebaseUser)
     }
 }
