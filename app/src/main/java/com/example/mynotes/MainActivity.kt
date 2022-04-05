@@ -1,6 +1,7 @@
 package com.example.mynotes
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -61,8 +62,6 @@ class MainActivity : AppCompatActivity() {
             Navigation.findNavController(this, R.id.myNavHostFragment).navigate(R.id.logInFragment)
         }
         else {
-            val dbUser = db.collection("users")
-            db.document(currentUser.uid)
             binding.txtLogout.visibility = View.VISIBLE
             binding.txtToolbarTitle.visibility = View.GONE
         }
