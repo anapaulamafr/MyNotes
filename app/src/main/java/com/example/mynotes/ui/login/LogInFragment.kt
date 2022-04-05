@@ -41,10 +41,9 @@ class LogInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val email = binding.editTextEmail.text.toString()
-        val password = binding.editTextSenhaLogIn.text.toString()
-
         binding.btnLogin.setOnClickListener {
+            val email = binding.editTextEmail.text.toString()
+            val password = binding.editTextSenhaLogIn.text.toString()
             auth = Firebase.auth
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
@@ -56,7 +55,6 @@ class LogInFragment : Fragment() {
                             Toast.LENGTH_SHORT).show()
                     }
                 }
-            findNavController().navigate(R.id.cadastroFragment)
         }
 
 
