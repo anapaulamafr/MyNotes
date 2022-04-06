@@ -1,12 +1,14 @@
 package com.example.mynotes.ui.listanotas
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynotes.Nota
+import com.example.mynotes.R
 import com.example.mynotes.databinding.ItemNotaBinding
 
 class NotaItemAdapter(private val listaNotas: ArrayList<Nota>, val context: Context) :
@@ -28,8 +30,10 @@ class NotaItemAdapter(private val listaNotas: ArrayList<Nota>, val context: Cont
 
         with(holder.itemView) {
             binding.textViewTextoNota.text = retornarFraseEncurtada(nota.toString())
+            val bundle = Bundle()
+            bundle.putString("notaTexto", nota.toString())
             holder.itemView.setOnClickListener {
-                findNavController().navigate(ListaNotasFragmentDirections.actionListaNotasFragmentToNotaFragment())
+                findNavController().navigate(R.id.notaFragment, bundle)
             }
         }
 

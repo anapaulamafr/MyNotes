@@ -33,7 +33,7 @@
     <argument
         android:name="notaTexto"
         app:argType="string"
-        android:defaultValue="."/>
+        android:defaultValue=""/>
     </fragment>
     <fragment
         android:id="@+id/listaNotasFragment"
