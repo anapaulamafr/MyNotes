@@ -3,6 +3,7 @@ package com.example.mynotes.ui.cadastro
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,7 +65,15 @@ class CadastroFragment : Fragment() {
                     val notas = ArrayList<Nota>()
                     val user = auth.currentUser
                     val usuario = Usuario(user!!.uid, user.displayName, notas)
-                    firebaseFirestore.collection("users").document(user.uid).set(usuario)
+                    val db = Firebase.firestore
+                    db.collection("users")
+                        .add(user)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d("SUCESSO", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("ERRO", "Error adding document", e)
+                        }
                     findNavController().navigate(R.id.logInFragment)
                 }
             }

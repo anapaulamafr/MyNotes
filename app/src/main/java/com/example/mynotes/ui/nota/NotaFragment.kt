@@ -49,6 +49,10 @@ class NotaFragment : Fragment() {
         firebaseFirestore = FirebaseFirestore.getInstance()
         auth = Firebase.auth
 
+        binding.btnSalvarNota.setOnClickListener {
+            salvarNota()
+        }
+
         return binding.root
     }
 
@@ -57,9 +61,7 @@ class NotaFragment : Fragment() {
         _binding = null
     }
 
-    override fun onPause() {
-        super.onPause()
-
+    fun salvarNota() {
         auth = Firebase.auth
         val mensagem = binding.editTextTextMultiLine.text.toString()
 
