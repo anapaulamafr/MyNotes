@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.Navigation
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         toolbar.navigationIcon = null
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.txtLogout.setOnClickListener {
             Firebase.auth.signOut()
@@ -66,6 +68,5 @@ class MainActivity : AppCompatActivity() {
             binding.txtLogout.visibility = View.VISIBLE
             binding.txtToolbarTitle.visibility = View.GONE
         }
-
     }
 }

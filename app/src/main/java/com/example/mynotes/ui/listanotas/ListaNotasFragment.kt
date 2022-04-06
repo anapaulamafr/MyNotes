@@ -6,18 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mynotes.Nota
-import com.example.mynotes.R
 import com.example.mynotes.databinding.FragmentListaNotasBinding
 
 class ListaNotasFragment : Fragment() {
 
     private var _binding: FragmentListaNotasBinding? = null
     private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var servicoItemAdapter: RecyclerView.Adapter<NotaItemAdapter.ViewHolder>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +23,17 @@ class ListaNotasFragment : Fragment() {
     ): View? {
         _binding = FragmentListaNotasBinding.inflate(inflater, container, false)
 
+        val listaNotas = ArrayList<Nota>()
+        val recyclerView = binding.recyclerViewListaNotas
+
+        recyclerView.adapter = servicoItemAdapter
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this.context)
+            adapter = NotaItemAdapter(listaNotas, this.context)
+        }
+
         binding.btnNovaNota.setOnClickListener {
-            findNavController().navigate(R.id.notaFragment)
+            findNavController().navigate(ListaNotasFragmentDirections.actionListaNotasFragmentToNotaFragment())
         }
 
         val arrayList = ArrayList<Nota>()

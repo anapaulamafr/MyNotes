@@ -12,6 +12,9 @@
         android:theme="@style/Theme.MyNotes">
         <activity android:name=".MainActivity"
             android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

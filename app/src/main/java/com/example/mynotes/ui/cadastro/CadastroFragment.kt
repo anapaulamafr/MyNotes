@@ -63,9 +63,7 @@ class CadastroFragment : Fragment() {
                 if (task.isSuccessful && isNewUser) {
                     val notas = ArrayList<Nota>()
                     val user = auth.currentUser
-                    val db = Firebase.firestore
-                    val userDocument = firebaseFirestore.collection("users").document(user!!.uid)
-                    val usuario = Usuario(user.uid, user.displayName, notas)
+                    val usuario = Usuario(user!!.uid, user.displayName, notas)
                     firebaseFirestore.collection("users").document(user.uid).set(usuario)
                     findNavController().navigate(R.id.logInFragment)
                 }

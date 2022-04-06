@@ -29,7 +29,12 @@
         android:name="com.example.mynotes.ui.nota.NotaFragment"
         android:label=""
         app:labelVisibilityMode="unlabeled"
-        tools:layout="@layout/fragment_nota" />
+        tools:layout="@layout/fragment_nota">
+    <argument
+        android:name="notaTexto"
+        app:argType="string"
+        android:defaultValue="."/>
+    </fragment>
     <fragment
         android:id="@+id/listaNotasFragment"
         android:name="com.example.mynotes.ui.listanotas.ListaNotasFragment"
