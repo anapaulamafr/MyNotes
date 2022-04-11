@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.NavController
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.example.mynotes.FirebaseFirestoreHelper
 import com.example.mynotes.Nota
+import com.example.mynotes.R
 import com.example.mynotes.databinding.FragmentNotaBinding
+import com.example.mynotes.ui.listanotas.SharedViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 
@@ -22,13 +23,9 @@ class NotaFragment : Fragment() {
     private var _binding: FragmentNotaBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseFirestore: FirebaseFirestore
-    private var notaParaEditar: Boolean = false
-    lateinit var notaAntiga: Nota
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    val firestore = FirebaseFirestoreHelper()
+    lateinit var notaExistente: Nota
+    private val args by navArgs<NotaFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,21 +33,21 @@ class NotaFragment : Fragment() {
     ): View? {
         _binding = FragmentNotaBinding.inflate(inflater, container, false)
 
-        val bundle: Bundle = this.requireArguments()
-
-        if (bundle.containsKey("notaTexto")) {
-            val notaExistente = bundle.getString("notaTexto")
-            notaParaEditar = true
-            notaAntiga = Nota(notaExistente!!)
+        if (args.nota != "") {
+            val notaExistente = args.nota
             binding.editTextTextMultiLine.setText(notaExistente)
-            bundle.remove("notaTexto")
+        } else {
+            notaExistente = Nota("")
         }
 
-        firebaseFirestore = FirebaseFirestore.getInstance()
-        auth = Firebase.auth
-
         binding.btnSalvarNota.setOnClickListener {
-            salvarNota()
+            if (notaExistente != Nota("")) {
+                salvarNota()
+            }
+            else {
+                editarNota(notaExistente)
+            }
+            findNavController().navigate(R.id.listaNotasFragment)
         }
 
         return binding.root
@@ -63,23 +60,15 @@ class NotaFragment : Fragment() {
 
     fun salvarNota() {
         auth = Firebase.auth
-        val mensagem = binding.editTextTextMultiLine.text.toString()
+        val nota = Nota(binding.editTextTextMultiLine.text.toString())
 
-        val texto: String = binding.editTextTextMultiLine.text.toString()
-        if (texto != "") {
-            editarNota(notaAntiga, notaNova = Nota(mensagem))
-        }
-        else {
-            val currentUser = auth.currentUser
-            val dbUser =  firebaseFirestore.collection("users").document(currentUser!!.uid)
-            dbUser.update("notas", FieldValue.arrayUnion(Nota(mensagem)))
-        }
+        firestore.criarNota(nota)
     }
 
-    fun editarNota(notaAntiga: Nota, notaNova: Nota) {
-        val currentUser = auth.currentUser
-        val dbUser =  firebaseFirestore.collection("users").document(currentUser!!.uid)
-        dbUser.update("notas", FieldValue.arrayRemove(notaAntiga))
-        dbUser.update("notas", FieldValue.arrayUnion(notaNova))
+    fun editarNota(notaAntiga: Nota) {
+        val notaNova = Nota(binding.editTextTextMultiLine.text.toString())
+
+        firestore.excluirNota(notaAntiga)
+        firestore.criarNota(notaNova)
     }
 }

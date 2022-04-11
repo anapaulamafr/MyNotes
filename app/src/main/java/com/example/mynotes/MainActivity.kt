@@ -1,7 +1,6 @@
 package com.example.mynotes
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -23,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navGraph: NavGraph
     private lateinit var auth: FirebaseAuth
     private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,26 +31,9 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
         val currentUser = auth.currentUser
 
-        val db = Firebase.firestore
-
         setSupportActionBar(binding.toolbar)
         navController = Navigation.findNavController(this, R.id.myNavHostFragment)
         navGraph = navController.navInflater.inflate(R.navigation.navigation)
-        navGraph.setStartDestination(R.id.cadastroFragment)
-        val navHostFragment = supportFragmentManager.findFragmentById(
-            R.id.myNavHostFragment
-        ) as NavHostFragment
-        navController = navHostFragment.navController
-
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-
-        val toolbar = binding.toolbar
-        setSupportActionBar(toolbar)
-
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        toolbar.navigationIcon = null
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.txtLogout.setOnClickListener {
             Firebase.auth.signOut()
@@ -61,12 +42,10 @@ class MainActivity : AppCompatActivity() {
 
         if (currentUser == null) {
             binding.txtLogout.visibility = View.GONE
-            binding.txtToolbarTitle.visibility = View.VISIBLE
-            Navigation.findNavController(this, R.id.myNavHostFragment).navigate(R.id.logInFragment)
         }
         else {
             binding.txtLogout.visibility = View.VISIBLE
-            binding.txtToolbarTitle.visibility = View.GONE
+            Navigation.findNavController(this, R.id.myNavHostFragment).navigate(R.id.listaNotasFragment)
         }
     }
 }

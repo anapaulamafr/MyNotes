@@ -1,23 +1,17 @@
 package com.example.mynotes.ui.cadastro
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.mynotes.Nota
+import com.example.mynotes.FirebaseFirestoreHelper
 import com.example.mynotes.R
-import com.example.mynotes.Usuario
 import com.example.mynotes.databinding.FragmentCadastroBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
@@ -26,7 +20,8 @@ class CadastroFragment : Fragment() {
     private var _binding: FragmentCadastroBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseFirestore: FirebaseFirestore
+    val firestore = FirebaseFirestoreHelper()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +35,6 @@ class CadastroFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = Firebase.auth
-        firebaseFirestore = FirebaseFirestore.getInstance()
 
         with (binding) {
             buttonSignUp.setOnClickListener {
@@ -56,24 +50,11 @@ class CadastroFragment : Fragment() {
             return
         }
 
-
-
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 val isNewUser: Boolean = task.result.additionalUserInfo!!.isNewUser
                 if (task.isSuccessful && isNewUser) {
-                    val notas = ArrayList<Nota>()
-                    val user = auth.currentUser
-                    val usuario = Usuario(user!!.uid, user.displayName, notas)
-                    val db = Firebase.firestore
-                    db.collection("users")
-                        .add(user)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d("SUCESSO", "DocumentSnapshot added with ID: ${documentReference.id}")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("ERRO", "Error adding document", e)
-                        }
+                    firestore.criarUsuario()
                     findNavController().navigate(R.id.logInFragment)
                 }
             }

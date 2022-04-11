@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/listaNotasFragment">
+    app:startDestination="@id/logInFragment">
 
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.example.mynotes.ui.login.LogInFragment"
         android:label=""
         app:labelVisibilityMode="unlabeled"
-        tools:layout="@layout/fragment_log_in" >
+        tools:layout="@layout/fragment_log_in">
         <action
             android:id="@+id/action_logInFragment_to_cadastroFragment"
             app:destination="@id/cadastroFragment" />
@@ -30,17 +30,21 @@
         android:label=""
         app:labelVisibilityMode="unlabeled"
         tools:layout="@layout/fragment_nota">
-    <argument
-        android:name="notaTexto"
-        app:argType="string"
-        android:defaultValue=""/>
+        <argument
+            android:name="nota"
+            android:defaultValue=""
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/listaNotasFragment"
         android:name="com.example.mynotes.ui.listanotas.ListaNotasFragment"
         android:label=""
         app:labelVisibilityMode="unlabeled"
-        tools:layout="@layout/fragment_lista_notas" >
+        tools:layout="@layout/fragment_lista_notas">
+        <argument
+            android:name="nota"
+            android:defaultValue=""
+            app:argType="string" />
         <action
             android:id="@+id/action_listaNotasFragment_to_notaFragment"
             app:destination="@id/notaFragment" />

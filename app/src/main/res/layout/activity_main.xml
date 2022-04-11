@@ -11,20 +11,12 @@
         android:layout_height="70dp"
         android:layout_width="match_parent"
         android:background="@color/queen_pink"
-        app:contentInsetStart="0dp"
+        app:contentInsetStart="20dp"
+        app:titleTextColor="@color/roxo_escuro"
         android:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/txtToolbarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/app_name"
-            android:visibility="gone"
-            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/txtLogout"

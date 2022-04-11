@@ -1,17 +1,15 @@
 package com.example.mynotes.ui.listanotas
 
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mynotes.Nota
 import com.example.mynotes.R
 import com.example.mynotes.databinding.ItemNotaBinding
 
-class NotaItemAdapter(private val listaNotas: ArrayList<Nota>, val context: Context) :
+class NotaItemAdapter(private val listaNotas: ArrayList<String>, val context: Context) :
     RecyclerView.Adapter<NotaItemAdapter.ViewHolder>() {
     private var _binding: ItemNotaBinding? = null
     private val binding get() = _binding!!
@@ -29,14 +27,11 @@ class NotaItemAdapter(private val listaNotas: ArrayList<Nota>, val context: Cont
         val nota = listaNotas[position]
 
         with(holder.itemView) {
-            binding.textViewTextoNota.text = retornarFraseEncurtada(nota.toString())
-            val bundle = Bundle()
-            bundle.putString("notaTexto", nota.toString())
+            binding.textViewTextoNota.text = retornarFraseEncurtada(nota)
             holder.itemView.setOnClickListener {
-                findNavController().navigate(R.id.notaFragment, bundle)
+                findNavController().navigate(ListaNotasFragmentDirections.actionListaNotasFragmentToNotaFragment(nota))
             }
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -44,7 +39,7 @@ class NotaItemAdapter(private val listaNotas: ArrayList<Nota>, val context: Cont
     }
 
     fun retornarFraseEncurtada(frase: String): String {
-        val fraseEncurtada: String = "${frase.substring(0, 30)}..."
+        val fraseEncurtada = "${frase.substring(0, 30)}..."
         return fraseEncurtada
     }
 }
