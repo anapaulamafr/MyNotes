@@ -34,8 +34,8 @@ class NotaFragment : Fragment() {
         _binding = FragmentNotaBinding.inflate(inflater, container, false)
 
         if (args.nota != "") {
-            val notaExistente = args.nota
-            binding.editTextTextMultiLine.setText(notaExistente)
+            notaExistente = Nota(args.nota)
+            binding.editTextTextMultiLine.setText(notaExistente.conteudo)
         } else {
             notaExistente = Nota("")
         }
