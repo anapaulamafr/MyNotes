@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewButton"
+    style="@style/CardViewButton"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="12dp"
     android:layout_marginTop="12dp"
-    style="@style/CardViewButton">
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="12dp">
 
-    <TextView
-        android:id="@+id/textViewTextoNota"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="15sp"
-        android:text="Hello World"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewTextoNota"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Hello World"
+            android:textSize="15sp" />
+
+        <ImageButton
+            android:id="@+id/btnDeletar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_outline_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

@@ -26,9 +26,7 @@ class FirebaseFirestoreHelper {
     }
 
     fun excluirNota(nota: Nota) {
-        nota.id?.let {
-            firebaseFirestore.collection("notas").document(it).delete()
-        }
+        firebaseFirestore.collection("notas").document(nota.id!!).delete()
     }
 
     fun editarNota(texto: String, nota: Nota) {

@@ -28,8 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth = Firebase.auth
-        val currentUser = auth.currentUser
+        val currentUser = Firebase.auth.currentUser
 
         setSupportActionBar(binding.toolbar)
         navController = Navigation.findNavController(this, R.id.myNavHostFragment)

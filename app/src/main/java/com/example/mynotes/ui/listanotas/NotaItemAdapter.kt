@@ -1,12 +1,13 @@
 package com.example.mynotes.ui.listanotas
 
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mynotes.FirebaseFirestoreHelper
 import com.example.mynotes.Nota
 import com.example.mynotes.databinding.ItemNotaBinding
 
@@ -14,6 +15,8 @@ class NotaItemAdapter(private val listaNotas: ArrayList<Nota>) :
     RecyclerView.Adapter<NotaItemAdapter.ViewHolder>() {
     private var _binding: ItemNotaBinding? = null
     private val binding get() = _binding!!
+    val firestore = FirebaseFirestoreHelper()
+
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -34,6 +37,10 @@ class NotaItemAdapter(private val listaNotas: ArrayList<Nota>) :
             bundle.putString("CONTEUDO", nota.conteudo)
             holder.itemView.setOnClickListener {
                 findNavController().navigate(ListaNotasFragmentDirections.actionListaNotasFragmentToNotaFragment(bundle))
+            }
+            binding.btnDeletar.setOnClickListener {
+                firestore.excluirNota(nota)
+                Log.d("Clicado", "clicado")
             }
         }
     }
