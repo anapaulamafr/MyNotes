@@ -41,6 +41,8 @@ class NotaItemAdapter(private val listaNotas: ArrayList<Nota>) :
             binding.btnDeletar.setOnClickListener {
                 firestore.excluirNota(nota)
                 Log.d("Clicado", "clicado")
+                listaNotas.removeAt(position)
+                notifyDataSetChanged()
             }
         }
     }
