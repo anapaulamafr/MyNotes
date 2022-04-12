@@ -1,54 +1,38 @@
 package com.example.mynotes
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.tasks.await
+import java.util.*
 
 
 class FirebaseFirestoreHelper {
-    val firebaseFirestore = Firebase.firestore
+    private val firebaseFirestore = Firebase.firestore
+    private val firebaseUser = FirebaseAuth.getInstance().currentUser
+
 
     fun criarUsuario() {
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-
-        val novoUsuario = Usuario(
-            firebaseUser!!.uid, firebaseUser!!.email, ArrayList()
-        )
-        firebaseFirestore.collection("usuarios").document(firebaseUser.uid).collection("notas")
+        firebaseFirestore.collection("usuarios").document(firebaseUser!!.uid)
     }
 
-    fun criarNota(nota: Nota) {
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        val documento = firebaseFirestore.collection("usuarios").document(firebaseUser!!.uid)
-            .collection("notas")
-
+    fun criarNota(texto: String) {
         val mapNota = hashMapOf(
-            "conteudo" to nota.conteudo
+            "id" to UUID.randomUUID().toString(),
+            "conteudo" to texto
         )
 
-        documento.add(mapNota)
+        firebaseFirestore.collection("notas").document(mapNota["id"]!!).set(mapNota)
     }
 
     fun excluirNota(nota: Nota) {
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-
-        firebaseFirestore.collection("usuarios").document(firebaseUser!!.uid)
-            .collection("notas").document(nota.conteudo).delete()
-
+        nota.id?.let {
+            firebaseFirestore.collection("notas").document(it).delete()
+        }
     }
 
-    suspend fun getNotas(): ArrayList<String> {
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        val notas = ArrayList<String>()
-        val documento = firebaseFirestore.collection("usuarios").document(firebaseUser!!.uid)
-            .collection("notas")
-
-        val snapshot = documento.get().await()
-        for (doc in snapshot!!.documents) {
-            notas.add(doc.toString())
-        }
-
-        return notas
+    fun editarNota(texto: String, nota: Nota) {
+        firebaseFirestore.collection("notas").document(nota.id!!)
+            .update("conteudo", texto)
     }
 }

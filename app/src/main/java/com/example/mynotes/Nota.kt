@@ -1,5 +1,6 @@
 package com.example.mynotes
 
 class Nota(
-    var conteudo: String
+    var id: String? = "",
+    var conteudo: String? =""
 )

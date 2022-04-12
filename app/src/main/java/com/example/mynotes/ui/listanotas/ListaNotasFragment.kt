@@ -5,26 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynotes.FirebaseFirestoreHelper
-import com.example.mynotes.R
+import com.example.mynotes.Nota
 import com.example.mynotes.databinding.FragmentListaNotasBinding
-import java.nio.channels.Selector
-import kotlin.coroutines.CoroutineContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ListaNotasFragment() : Fragment() {
 
     private var _binding: FragmentListaNotasBinding? = null
     private val binding get() = _binding!!
     private var notaItemAdapter: RecyclerView.Adapter<NotaItemAdapter.ViewHolder>? = null
-    private lateinit var firebaseFirestore: FirebaseFirestoreHelper
+    private lateinit var firebaseFirestoreHelper: FirebaseFirestoreHelper
+    val firebaseFirestore = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +28,7 @@ class ListaNotasFragment() : Fragment() {
     ): View? {
         _binding = FragmentListaNotasBinding.inflate(inflater, container, false)
 
-        firebaseFirestore = FirebaseFirestoreHelper()
+        firebaseFirestoreHelper = FirebaseFirestoreHelper()
 
         return binding.root
     }
@@ -44,19 +40,30 @@ class ListaNotasFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewLifecycleOwner.lifecycleScope.launch {
-            val listaNotas = firebaseFirestore.getNotas()
-            val recyclerView = binding.recyclerViewListaNotas
+        val notas = ArrayList<Nota>()
 
-            recyclerView.adapter = notaItemAdapter
-            recyclerView.apply {
-                layoutManager = LinearLayoutManager(this.context)
-                adapter = NotaItemAdapter(listaNotas, this.context)
+        firebaseFirestore.collection("notas")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    var member =
+                        Nota(document.data["id"].toString(), document.data["conteudo"].toString())
+                    notas.add(member)
+                }
+                val recyclerView = binding.recyclerViewListaNotas
+                recyclerView.adapter = notaItemAdapter
+                recyclerView.apply {
+                    layoutManager = LinearLayoutManager(this.context)
+                    adapter = NotaItemAdapter(notas)
+                }
             }
 
-            binding.btnNovaNota.setOnClickListener {
-                findNavController().navigate(ListaNotasFragmentDirections.actionListaNotasFragmentToNotaFragment())
-            }
+        binding.btnNovaNota.setOnClickListener {
+            findNavController().navigate(
+                ListaNotasFragmentDirections.actionListaNotasFragmentToNotaFragment(
+                    bundle = Bundle()
+                )
+            )
         }
     }
 }

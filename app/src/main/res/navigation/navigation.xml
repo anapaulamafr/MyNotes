@@ -31,9 +31,8 @@
         app:labelVisibilityMode="unlabeled"
         tools:layout="@layout/fragment_nota">
         <argument
-            android:name="nota"
-            android:defaultValue=""
-            app:argType="string" />
+            android:name="bundle"
+            app:argType="android.os.Bundle" />
     </fragment>
     <fragment
         android:id="@+id/listaNotasFragment"
@@ -42,9 +41,8 @@
         app:labelVisibilityMode="unlabeled"
         tools:layout="@layout/fragment_lista_notas">
         <argument
-            android:name="nota"
-            android:defaultValue=""
-            app:argType="string" />
+            android:name="bundle"
+            app:argType="android.os.Bundle" />
         <action
             android:id="@+id/action_listaNotasFragment_to_notaFragment"
             app:destination="@id/notaFragment" />
