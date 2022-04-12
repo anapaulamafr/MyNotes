@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mynotes.FirebaseFirestoreHelper
 import com.example.mynotes.Nota
 import com.example.mynotes.databinding.FragmentListaNotasBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -21,6 +22,8 @@ class ListaNotasFragment() : Fragment() {
     private var notaItemAdapter: RecyclerView.Adapter<NotaItemAdapter.ViewHolder>? = null
     private lateinit var firebaseFirestoreHelper: FirebaseFirestoreHelper
     val firebaseFirestore = Firebase.firestore
+    private val firebaseUser = FirebaseAuth.getInstance().currentUser
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +45,7 @@ class ListaNotasFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val notas = ArrayList<Nota>()
 
-        firebaseFirestore.collection("notas")
+        firebaseFirestore.collection("notas-${firebaseUser!!.uid}")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {

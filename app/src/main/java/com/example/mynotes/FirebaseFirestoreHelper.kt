@@ -22,15 +22,15 @@ class FirebaseFirestoreHelper {
             "conteudo" to texto
         )
 
-        firebaseFirestore.collection("notas").document(mapNota["id"]!!).set(mapNota)
+        firebaseFirestore.collection("notas-${firebaseUser!!.uid}").document(mapNota["id"]!!).set(mapNota)
     }
 
     fun excluirNota(nota: Nota) {
-        firebaseFirestore.collection("notas").document(nota.id!!).delete()
+        firebaseFirestore.collection("notas-${firebaseUser!!.uid}").document(nota.id!!).delete()
     }
 
     fun editarNota(texto: String, nota: Nota) {
-        firebaseFirestore.collection("notas").document(nota.id!!)
+        firebaseFirestore.collection("notas-${firebaseUser!!.uid}").document(nota.id!!)
             .update("conteudo", texto)
     }
 }
