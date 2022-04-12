@@ -12,8 +12,11 @@ class FirebaseFirestoreHelper {
     private val firebaseUser = FirebaseAuth.getInstance().currentUser
 
 
-    fun criarUsuario() {
-        firebaseFirestore.collection("usuarios").document(firebaseUser!!.uid)
+    fun criarUsuario(email: String) {
+        val mapUsuario = hashMapOf(
+            "email" to email
+        )
+        firebaseFirestore.collection("usuarios").document(email).set(mapUsuario)
     }
 
     fun criarNota(texto: String) {
