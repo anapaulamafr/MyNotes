@@ -55,7 +55,7 @@ class CadastroFragment : Fragment() {
                 val isNewUser: Boolean = task.result.additionalUserInfo!!.isNewUser
                 if (task.isSuccessful && isNewUser) {
                     firestore.criarUsuario(email)
-                    findNavController().navigate(R.id.logInFragment)
+                    findNavController().navigate(R.id.listaNotasFragment)
                 }
             }
     }
