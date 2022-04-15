@@ -1,139 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="30dp"
-    android:layout_marginEnd="30dp"
+    android:fillViewport="true"
     tools:context=".ui.cadastro.CadastroFragment">
 
-    <ImageView
-        android:id="@+id/logoSmall"
-        android:layout_width="130dp"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo"/>
-
-    <TextView
-        android:id="@+id/textViewCadastroTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/signUpTitulo"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/layoutEditTextEmail"
-        app:layout_constraintTop_toBottomOf="@+id/logoSmall" />
-
-    <TextView
-        android:id="@+id/textViewCadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/email"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/layoutEditTextEmail"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCadastroTitulo" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutEditTextEmail"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/emailSignUpPlaceholder"
-        app:boxBackgroundColor="#fff"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCadastro" >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextEmail"
+        <ImageView
+            android:id="@+id/logoSmall"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/textViewCadastroTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/signUpTitulo"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/layoutEditTextEmail"
+            app:layout_constraintTop_toBottomOf="@+id/logoSmall" />
+
+        <TextView
+            android:id="@+id/textViewCadastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/email"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/layoutEditTextEmail"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCadastroTitulo" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutEditTextEmail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColorHint="#757575"
-            android:singleLine="true"
-            tools:ignore="TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/emailSignUpPlaceholder"
+            android:inputType="textEmailAddress"
+            app:boxBackgroundColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCadastro">
 
-    <TextView
-        android:id="@+id/textViewSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="27dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/password"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/editTextSenhaLogIn"
-        app:layout_constraintTop_toBottomOf="@+id/layoutEditTextEmail" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:textColorHint="#757575"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextSenhaLogIn"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/passwordSignupPlaceholder"
-        app:boxBackgroundColor="#fff"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSenha">
+        <TextView
+            android:id="@+id/textViewSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/password"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/editTextSenhaLogIn"
+            app:layout_constraintTop_toBottomOf="@+id/layoutEditTextEmail" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextSenha"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextSenhaLogIn"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColorHint="#757575"
-            android:singleLine="true"
-            tools:ignore="TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/passwordSignupPlaceholder"
+            android:inputType="textPassword"
+            app:boxBackgroundColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.469"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSenha">
 
-    <TextView
-        android:id="@+id/textViewConfirmarSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/passWordConfirmation"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/editTextConfirmarSenha"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSenhaLogIn" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextSenha"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:textColorHint="#757575"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextConfirmarSenha"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/passwordConfirmationPlaceholder"
-        app:boxBackgroundColor="#fff"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmarSenha">
+        <TextView
+            android:id="@+id/textViewConfirmarSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/passWordConfirmation"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/editTextConfirmarSenha"
+            app:layout_constraintTop_toBottomOf="@+id/editTextSenhaLogIn" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/fieldSize"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextConfirmarSenha"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColorHint="#757575"
-            android:singleLine="true"
-            tools:ignore="TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/passwordConfirmationPlaceholder"
+            android:inputType="textPassword"
+            app:boxBackgroundColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewConfirmarSenha">
 
-    <Button
-        style="@style/buttonLogin"
-        android:id="@+id/buttonSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/btnSignUp"
-        android:background="@drawable/button_background"
-        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmarSenha" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fieldSize"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:textColorHint="#757575"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewCep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="CEP (Somente números)"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/editTextConfirmarSenha"
+            app:layout_constraintTop_toBottomOf="@+id/editTextConfirmarSenha" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="textPassword"
+            app:boxBackgroundColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewConfirmarSenha">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextCep"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:textColorHint="#757575"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textViewEndereco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Endereço"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/editTextConfirmarSenha"
+            app:layout_constraintTop_toBottomOf="@+id/editTextConfirmarSenha" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="textPassword"
+            app:boxBackgroundColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewConfirmarSenha">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextEndereco"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:textColorHint="#757575"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonSignUp"
+            style="@style/buttonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/button_background"
+            android:text="@string/btnSignUp"
+            app:layout_constraintTop_toBottomOf="@+id/editTextConfirmarSenha" />
+
+    </LinearLayout>
+
+</ScrollView>
